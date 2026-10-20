@@ -15,6 +15,7 @@ import {
 import { Country } from '../../types';
 import { getCountryInfo } from '../../utils/countries';
 import confetti from 'canvas-confetti';
+import { AdSenseBanner } from '../AdSenseBanner';
 
 interface FIRECalculatorProps {
   country: Country;
@@ -374,6 +375,9 @@ Simulated on Calcora (https://calcora.com)`;
         </div>
 
       </div>
+
+      {/* In-Engine High-CTR Ad Placement */}
+      <AdSenseBanner label="Sponsored Retirement & Index Brokerage • Google AdSense" />
 
     </div>
   );

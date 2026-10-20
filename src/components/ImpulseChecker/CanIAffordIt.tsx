@@ -16,6 +16,7 @@ import {
 import { Country } from '../../types';
 import { getCountryInfo } from '../../utils/countries';
 import confetti from 'canvas-confetti';
+import { AdSenseBanner } from '../AdSenseBanner';
 
 interface CanIAffordItProps {
   country: Country;
@@ -349,6 +350,9 @@ Tested on Calcora (https://calcora.com)`;
         </div>
 
       </div>
+
+      {/* In-Engine High-CTR Ad Placement */}
+      <AdSenseBanner label="Sponsored Savings & Investment Offers • Google AdSense" />
 
     </div>
   );

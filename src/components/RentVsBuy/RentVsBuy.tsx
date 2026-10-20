@@ -3,6 +3,7 @@ import { Layers, ChevronDown, ChevronUp, Copy, Check, Zap, Home, Award } from 'l
 import { RentVsBuyParams, Country } from '../../types';
 import { calculateRentVsBuy } from '../../utils/housingCalculations';
 import { getCountryInfo } from '../../utils/countries';
+import { AdSenseBanner } from '../AdSenseBanner';
 
 interface RentVsBuyProps {
   country: Country;
@@ -345,6 +346,9 @@ Calculated via Calcora (https://calcora.com)`;
         </div>
 
       </div>
+
+      {/* In-Engine High-CTR Ad Placement */}
+      <AdSenseBanner label="Sponsored Mortgage & Real Estate Offers • Google AdSense" />
 
     </div>
   );

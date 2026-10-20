@@ -18,6 +18,7 @@ import confetti from 'canvas-confetti';
 import { CreditCardItem, Country } from '../../types';
 import { simulateDebtPayoff } from '../../utils/debtCalculations';
 import { getCountryInfo } from '../../utils/countries';
+import { AdSenseBanner } from '../AdSenseBanner';
 
 interface DebtMatrixProps {
   country: Country;
@@ -383,6 +384,9 @@ Calculated via Calcora (https://calcora.com)`;
         </div>
 
       </div>
+
+      {/* In-Engine High-CTR Ad Placement */}
+      <AdSenseBanner label="Sponsored Debt Relief & Credit Tools • Google AdSense" />
 
     </div>
   );

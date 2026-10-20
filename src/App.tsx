@@ -12,6 +12,7 @@ import { UKOptimizer } from './components/UKOptimizer/UKOptimizer';
 import { SuggestionHub } from './components/SuggestionBox/SuggestionHub';
 import { MonetizationCard } from './components/MonetizationCard';
 import { AdSenseBanner } from './components/AdSenseBanner';
+import { StickyBottomAd } from './components/StickyBottomAd';
 import { SEOContentHub } from './components/SEO/SEOContentHub';
 import { Footer } from './components/Footer';
 import { PrintReportModal } from './components/PrintReportModal';
@@ -143,8 +144,13 @@ export function App() {
         language={language}
       />
 
+      {/* Top High-Impact Leaderboard Ad Banner */}
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-2">
+        <AdSenseBanner label="Sponsored Top Partner • Google AdSense" format="horizontal" />
+      </div>
+
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-6 pb-20">
         
         {/* Active Calculator Component */}
         {activeTab === '1099-vs-w2' && <TaxEqualizer country={country} language={language} />}
@@ -161,13 +167,16 @@ export function App() {
           />
         )}
 
-        {/* Google AdSense Sponsored Responsive Ad Slot */}
-        <AdSenseBanner />
+        {/* Google AdSense Sponsored Mid-Content Ad Slot */}
+        <AdSenseBanner label="Sponsored Financial Toolkit • Google AdSense" format="auto" />
 
         {/* High-Converting Affiliate & Monetization Callout */}
-        <div className="pt-2">
+        <div className="pt-1">
           <MonetizationCard activeTab={activeTab === 'suggestions' ? '1099-vs-w2' : activeTab} country={country} />
         </div>
+
+        {/* In-Article Pre-FAQ Ad Slot */}
+        <AdSenseBanner label="Sponsored Market Insights • Google AdSense" format="horizontal" />
 
         {/* Search Engine Optimization (SEO) Content & Rich FAQ Accordion */}
         <SEOContentHub country={country} activeTab={activeTab} />
@@ -176,6 +185,9 @@ export function App() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Sticky Bottom Floating Anchor Ad (Mobile & Desktop Viewports) */}
+      <StickyBottomAd />
 
       {/* Printable Report Modal */}
       <PrintReportModal

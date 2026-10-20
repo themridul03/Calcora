@@ -15,6 +15,7 @@ import { calculateTaxComparison, US_STATES, TaxComparisonInput } from '../../uti
 import { Country } from '../../types';
 import { getCountryInfo } from '../../utils/countries';
 import { SupportedLanguage, getTranslation } from '../../utils/i18n';
+import { AdSenseBanner } from '../AdSenseBanner';
 
 interface TaxEqualizerProps {
   country: Country;
@@ -391,6 +392,9 @@ Calculated via Calcora (https://calcora.com)`;
         </div>
 
       </div>
+
+      {/* In-Engine High-CTR Ad Placement */}
+      <AdSenseBanner label="Sponsored Tax & Legal Services • Google AdSense" />
 
     </div>
   );

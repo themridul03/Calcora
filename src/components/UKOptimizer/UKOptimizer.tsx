@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Landmark, AlertTriangle, ShieldCheck, TrendingUp, Sparkles, HelpCircle, Layers } from 'lucide-react';
 import { UKTaxInput, calculateUKTax } from '../../utils/ukTaxCalculations';
+import { AdSenseBanner } from '../AdSenseBanner';
 
 export const UKOptimizer: React.FC = () => {
   const [input, setInput] = useState<UKTaxInput>({
@@ -291,6 +292,9 @@ export const UKOptimizer: React.FC = () => {
         </div>
 
       </div>
+
+      {/* In-Engine High-CTR Ad Placement */}
+      <AdSenseBanner label="Sponsored UK SIPP & Accounting • Google AdSense" />
 
     </div>
   );
