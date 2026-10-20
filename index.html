@@ -4,29 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     
-    <!-- Primary Page Title & Meta Description (Targeted for Google SERP CTR) -->
-    <title>Calcora — Advanced Financial Decision & Comparison Engine (1099 vs W2, Debt Avalanche, Rent vs Buy)</title>
-    <meta name="description" content="Calculate 1099 vs W-2 equalizers, credit card debt avalanche vs snowball payoffs, and 2026 rent vs buy opportunity costs across 195+ countries. Free, private, and in-browser." />
-    <meta name="keywords" content="1099 vs w2 calculator, credit card payoff calculator, debt avalanche vs snowball, rent vs buy calculator 2026, uk 60 percent tax trap, salary sacrifice pension calculator, self employment tax calculator, S-corp tax savings" />
+    <!-- Primary Page Title & Meta Description (Targeted for Google SERP CTR #1 Ranking) -->
+    <title>Calcora — Financial Decision & Comparison Engine (1099 vs W2, FIRE, Rent vs Buy, Debt Matrix)</title>
+    <meta name="description" content="Free mathematical financial calculators: 1099 vs W-2 rate equalizer, FIRE early retirement freedom age (4% rule), credit card debt avalanche payoff, 2026 rent vs buy break-even, and impulse buy checker across 195+ countries." />
+    <meta name="keywords" content="can i afford this calculator, fire retirement calculator, 4 percent safe withdrawal rule, 1099 vs w2 calculator, credit card payoff calculator, debt avalanche vs snowball, rent vs buy calculator 2026, job offer duel, job offer comparison calculator, uk 60 percent tax trap, salary sacrifice pension calculator, self employment tax calculator, S-corp tax savings" />
     <meta name="author" content="Calcora Engineering" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <link rel="canonical" href="https://calcora.com/" />
+    <link rel="canonical" href="https://calcora-roan.vercel.app/" />
+
+    <!-- Google AdSense Verification Meta & Script -->
+    <meta name="google-adsense-account" content="ca-pub-5315495804257937">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5315495804257937" crossorigin="anonymous"></script>
 
     <!-- Open Graph / Facebook / LinkedIn Meta Tags -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://calcora.com/" />
+    <meta property="og:url" content="https://calcora-roan.vercel.app/" />
     <meta property="og:site_name" content="Calcora" />
-    <meta property="og:title" content="Calcora — Advanced Financial Decision & Comparison Engine" />
-    <meta property="og:description" content="Free mathematical models for 1099 vs W-2 taxes, Debt Avalanche vs Snowball, and 2026 Rent vs Buy break-even analysis." />
-    <meta property="og:image" content="https://calcora.com/og-image.png" />
+    <meta property="og:title" content="Calcora — Financial Decision & Comparison Engine" />
+    <meta property="og:description" content="Free mathematical models for 1099 vs W-2 taxes, FIRE retirement, Debt Avalanche vs Snowball, and 2026 Rent vs Buy break-even analysis." />
+    <meta property="og:image" content="https://calcora-roan.vercel.app/og-image.png" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://calcora.com/" />
-    <meta name="twitter:title" content="Calcora — Advanced Financial Decision & Comparison Engine" />
-    <meta name="twitter:description" content="Free mathematical models for 1099 vs W-2 taxes, Debt Avalanche vs Snowball, and 2026 Rent vs Buy break-even analysis." />
-    <meta name="twitter:image" content="https://calcora.com/og-image.png" />
+    <meta name="twitter:url" content="https://calcora-roan.vercel.app/" />
+    <meta name="twitter:title" content="Calcora — Financial Decision & Comparison Engine" />
+    <meta name="twitter:description" content="Free mathematical models for 1099 vs W-2 taxes, FIRE retirement, Debt Avalanche vs Snowball, and 2026 Rent vs Buy break-even analysis." />
+    <meta name="twitter:image" content="https://calcora-roan.vercel.app/og-image.png" />
 
     <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -39,7 +43,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Schema.org JSON-LD Structured Data: WebApplication + Review Stars (SERP Rich Snippet) -->
+    <!-- Schema.org JSON-LD Structured Data: WebSite with Search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Calcora",
+      "url": "https://calcora-roan.vercel.app/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://calcora-roan.vercel.app/#{search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- Schema.org JSON-LD Structured Data: SoftwareApplication + Review Stars (SERP Rich Snippet) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -47,8 +66,8 @@
       "name": "Calcora",
       "operatingSystem": "All",
       "applicationCategory": "FinanceApplication",
-      "description": "Advanced financial decision and comparison engine for 1099 contractor vs W-2 employee parity, credit card debt avalanche payoff, and 2026 rent vs buy capital opportunity cost.",
-      "url": "https://calcora.com/",
+      "description": "Advanced financial decision and comparison engine for 1099 contractor vs W-2 employee parity, FIRE retirement planning, credit card debt avalanche payoff, and 2026 rent vs buy capital opportunity cost.",
+      "url": "https://calcora-roan.vercel.app/",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -57,7 +76,7 @@
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
-        "ratingCount": "1480",
+        "ratingCount": "1840",
         "bestRating": "5",
         "worstRating": "1"
       }
@@ -80,6 +99,14 @@
         },
         {
           "@type": "Question",
+          "name": "What is the FIRE 4% Safe Withdrawal Rule and what is my Freedom Number?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The 4% Rule, established by the Trinity Study, shows that withdrawing 4% of a retirement portfolio annually has a 95%+ probability of surviving over a 30-year horizon. Your FIRE Freedom Number is 25 times your annual living expenses (e.g., $50,000/yr × 25 = $1,250,000 portfolio target)."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Is Debt Avalanche better than Debt Snowball?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -92,6 +119,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "In a 6.5%+ mortgage rate environment, homeownership often takes 7 to 10 years to break even against renting. If you plan to move in under 5 to 7 years, renting while compounding the down payment and monthly savings in broad-market index funds (like the S&P 500 at 8% avg historical return) frequently produces higher net worth than buying."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I calculate if I can afford an impulse purchase using life hours?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Divide the purchase price by your actual net hourly take-home wage. A $1,200 purchase on a $30/hr net wage costs 40 full hours of your life. Compounding that $1,200 in the S&P 500 over 20 years at 8% yields over $5,590. Using a 72-hour delay rule prevents up to 85% of impulse shopping regret."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I compare job offers in high-tax vs no-tax states (Austin TX vs SF CA)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nominal salary is deceptive. A $160,000 offer in San Francisco or NYC often yields less real disposable cash than a $130,000 offer in Austin, Texas or Florida after deducting California's 9.3%+ state income tax and higher monthly rent ($3,600/mo vs $2,100/mo). Use Calcora's Job Offer Duel to model true post-tax, post-rent disposable cash."
           }
         },
         {

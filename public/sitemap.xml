@@ -4,43 +4,73 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
+  <!-- Main Suite Entrypoint -->
   <url>
-    <loc>https://calcora.com/</loc>
+    <loc>https://calcora-roan.vercel.app/</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
+  <!-- 1099 vs W2 Equalizer -->
   <url>
-    <loc>https://calcora.com/#1099-vs-w2</loc>
+    <loc>https://calcora-roan.vercel.app/#1099-vs-w2</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- Credit Card Debt Avalanche vs Snowball Matrix -->
   <url>
-    <loc>https://calcora.com/#debt-matrix</loc>
+    <loc>https://calcora-roan.vercel.app/#debt-matrix</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- 2026 Rent vs Buy Break-Even Engine -->
   <url>
-    <loc>https://calcora.com/#rent-vs-buy</loc>
+    <loc>https://calcora-roan.vercel.app/#rent-vs-buy</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- "Can I Afford This?" Viral Impulse Buy Checker -->
   <url>
-    <loc>https://calcora.com/#uk-tax</loc>
+    <loc>https://calcora-roan.vercel.app/#can-i-afford-it</loc>
     <lastmod>2026-10-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
   </url>
 
+  <!-- FIRE Retirement Freedom 4% Rule Calculator -->
   <url>
-    <loc>https://calcora.com/#suggestions</loc>
+    <loc>https://calcora-roan.vercel.app/#fire-calculator</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Side-by-Side Job Offer Duel -->
+  <url>
+    <loc>https://calcora-roan.vercel.app/#job-duel</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- UK 60% Marginal Tax Trap & Salary Sacrifice -->
+  <url>
+    <loc>https://calcora-roan.vercel.app/#uk-tax</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Community Roadmap & Suggestion Hub -->
+  <url>
+    <loc>https://calcora-roan.vercel.app/#suggestions</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

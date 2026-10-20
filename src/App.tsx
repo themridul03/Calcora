@@ -11,6 +11,7 @@ import { JobDuel } from './components/JobDuel/JobDuel';
 import { UKOptimizer } from './components/UKOptimizer/UKOptimizer';
 import { SuggestionHub } from './components/SuggestionBox/SuggestionHub';
 import { MonetizationCard } from './components/MonetizationCard';
+import { AdSenseBanner } from './components/AdSenseBanner';
 import { SEOContentHub } from './components/SEO/SEOContentHub';
 import { Footer } from './components/Footer';
 import { PrintReportModal } from './components/PrintReportModal';
@@ -159,6 +160,9 @@ export function App() {
             onNavigateTab={tab => setActiveTab(tab)}
           />
         )}
+
+        {/* Google AdSense Sponsored Responsive Ad Slot */}
+        <AdSenseBanner />
 
         {/* High-Converting Affiliate & Monetization Callout */}
         <div className="pt-2">

@@ -1,7 +1,14 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt for Calcora
 User-agent: *
 Allow: /
 
-# Sitemaps
-Sitemap: https://calcora.com/sitemap.xml
-Sitemap: https://calcora.com/sitemap-calculators.xml
+# Google AdSense Crawler Explicit Access
+User-agent: Mediapartners-Google
+Allow: /
+
+# Google Search Engine Crawler
+User-agent: Googlebot
+Allow: /
+
+# Sitemap Index
+Sitemap: https://calcora-roan.vercel.app/sitemap.xml
