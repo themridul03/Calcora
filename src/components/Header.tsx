@@ -13,6 +13,7 @@ interface HeaderProps {
   onOpenCountryModal: () => void;
   language: SupportedLanguage;
   onOpenLanguageModal: () => void;
+  onNavigateHome?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -24,6 +25,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenCountryModal,
   language,
   onOpenLanguageModal,
+  onNavigateHome,
 }) => {
   const currentCountry = COUNTRIES.find(c => c.code === country) || COUNTRIES[0];
   const currentLangInfo = LANGUAGES.find(l => l.code === language) || LANGUAGES[0];
@@ -33,7 +35,16 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
         
         {/* Brand Logo - Apple Styled */}
-        <div className="flex items-center space-x-3">
+        <a 
+          href="/" 
+          onClick={(e) => {
+            if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0 && onNavigateHome) {
+              e.preventDefault();
+              onNavigateHome();
+            }
+          }}
+          className="flex items-center space-x-3 text-inherit no-underline hover:opacity-90 transition cursor-pointer"
+        >
           <div className="w-10 h-10 rounded-full bg-[#ff9f0a] flex items-center justify-center shadow-lg shadow-[#ff9f0a]/20">
             <Calculator className="w-5 h-5 text-black stroke-[2.5]" />
           </div>
@@ -50,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({
               Global Financial Decision & Comparison Engine
             </p>
           </div>
-        </div>
+        </a>
 
         {/* Global Market Switcher, Language & Apple Quick Calc Button */}
         <div className="flex items-center gap-2 sm:gap-2.5">

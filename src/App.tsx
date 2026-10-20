@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { ChevronRight, Home as HomeIcon } from 'lucide-react';
 import { Country, CalculatorType } from './types';
 import { Header } from './components/Header';
 import { Tabs } from './components/Tabs';
@@ -21,6 +22,12 @@ import { CountrySearchModal } from './components/CountrySearchModal';
 import { LanguageModal } from './components/LanguageModal';
 import { getCountryInfo } from './utils/countries';
 import { SupportedLanguage, COUNTRY_DEFAULT_LANGUAGE } from './utils/i18n';
+import { 
+  ROUTES, 
+  BASE_URL, 
+  getCalculatorFromPathname, 
+  LEGACY_HASH_MAP 
+} from './utils/routes';
 
 export function App() {
   const [country, setCountry] = useState<Country>('US');
@@ -31,74 +38,97 @@ export function App() {
   const [isCountryModalOpen, setIsCountryModalOpen] = useState<boolean>(false);
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState<boolean>(false);
 
-  // Sync initial tab with URL hash if present
-  useEffect(() => {
-    const hash = window.location.hash.replace('#', '') as CalculatorType;
-    const validTabs: CalculatorType[] = [
-      '1099-vs-w2', 
-      'debt-matrix', 
-      'rent-vs-buy', 
-      'can-i-afford-it', 
-      'fire-calculator', 
-      'job-duel', 
-      'uk-tax', 
-      'suggestions'
-    ];
-    if (validTabs.includes(hash)) {
-      setActiveTab(hash);
+  // Navigate to a route using HTML5 History API
+  const navigateToRoute = useCallback((tabId: CalculatorType, explicitPath?: string) => {
+    setActiveTab(tabId);
+    const targetPath = explicitPath || ROUTES[tabId]?.path || '/';
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
     }
   }, []);
 
-  // Dynamic SEO Title & Meta Description updating based on Tab and Country
+  // Handle Initial Route Load, Legacy Hash Redirects & Browser History (Popstate)
+  useEffect(() => {
+    // 1. Check for legacy hash fragments and redirect to canonical clean URLs
+    const currentHash = window.location.hash;
+    if (currentHash && LEGACY_HASH_MAP[currentHash]) {
+      const canonicalPath = LEGACY_HASH_MAP[currentHash];
+      const matchedCalc = getCalculatorFromPathname(canonicalPath);
+      if (matchedCalc) {
+        setActiveTab(matchedCalc);
+      }
+      window.history.replaceState(null, '', canonicalPath);
+      return;
+    }
+
+    // 2. Check current pathname on direct load or refresh
+    const calcFromPath = getCalculatorFromPathname(window.location.pathname);
+    if (calcFromPath) {
+      setActiveTab(calcFromPath);
+    }
+
+    // 3. Listen for browser Back/Forward navigation
+    const handlePopState = () => {
+      const poppedCalc = getCalculatorFromPathname(window.location.pathname);
+      if (poppedCalc) {
+        setActiveTab(poppedCalc);
+      } else if (window.location.pathname === '/') {
+        setActiveTab('1099-vs-w2');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Dynamic SEO Title, Meta Description, Canonical Link, and Open Graph tags
   useEffect(() => {
     const countryInfo = getCountryInfo(country);
-    let title = 'Calcora — Financial Decision Engine';
-    let desc = 'Advanced financial calculators for 1099 vs W2, Debt Avalanche, Rent vs Buy, and FIRE Retirement.';
+    const routeConfig = ROUTES[activeTab];
 
-    switch (activeTab) {
-      case '1099-vs-w2':
-        title = `1099 vs W-2 Equalizer & Self-Employment Tax Calculator (${countryInfo.name}) | Calcora`;
-        desc = `Calculate exact 1099 contractor equivalent hourly rate to match a W-2 salary after self-employment tax (15.3%), QBI deduction, and missing health insurance.`;
-        break;
-      case 'debt-matrix':
-        title = `Credit Card Debt Payoff Calculator — Avalanche vs Snowball (${countryInfo.symbol}) | Calcora`;
-        desc = `Compare Debt Avalanche, Debt Snowball, and Consolidation Loans. See exact debt-free dates, interest saved, and visual amortization curves.`;
-        break;
-      case 'rent-vs-buy':
-        title = `2026 Rent vs Buy Calculator & S&P 500 Opportunity Cost (${countryInfo.name}) | Calcora`;
-        desc = `Does buying build more wealth than renting? Compare mortgage interest, HOA, and property taxes against compounding down payments in index funds.`;
-        break;
-      case 'can-i-afford-it':
-        title = `Can I Afford This? Impulse Buy & Life-Hours Traded Calculator (${countryInfo.symbol}) | Calcora`;
-        desc = `See how many hours of your life an impulse purchase actually costs, calculate S&P 500 compound growth opportunity cost, and apply the viral 72-Hour Rule.`;
-        break;
-      case 'fire-calculator':
-        title = `FIRE Calculator — Financial Independence & Early Retirement Age (${countryInfo.name}) | Calcora`;
-        desc = `Calculate your exact FIRE Freedom Number using the Trinity Study 4% Safe Withdrawal Rule, Coast FIRE, Lean FIRE, and compounding investment runway.`;
-        break;
-      case 'job-duel':
-        title = `Job Offer Duel — Side-by-Side Salary & Cost of Living Comparison (${countryInfo.symbol}) | Calcora`;
-        desc = `Compare two competing tech or remote job offers side-by-side. Factor in state income taxes, local rent, 401(k) matching, and real monthly disposable cash.`;
-        break;
-      case 'uk-tax':
-        title = `UK 60% Marginal Tax Trap & Salary Sacrifice Calculator 2025/2026 | Calcora`;
-        desc = `Navigate the HMRC £100k–£125k personal allowance taper. Calculate pension salary sacrifice savings and 30-hour free childcare protection.`;
-        break;
-      case 'suggestions':
-        title = `Smart Financial Insights & Feature Request Roadmap | Calcora`;
-        desc = `Actionable tax optimization hacks, S-Corp shielding tips, and community feature requests for Calcora.`;
-        break;
-    }
+    if (routeConfig) {
+      const dynamicTitle = routeConfig.metaTitle(countryInfo.name, countryInfo.symbol);
+      const dynamicDesc = routeConfig.metaDescription;
+      const canonicalUrl = `${BASE_URL}${window.location.pathname === '/' ? '' : routeConfig.path}`;
 
-    document.title = title;
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute('content', desc);
-    }
+      // Update Document Title
+      document.title = dynamicTitle;
 
-    // Update window hash for clean URL sharing
-    if (window.location.hash !== `#${activeTab}`) {
-      window.history.replaceState(null, '', `#${activeTab}`);
+      // Update Meta Description
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', dynamicDesc);
+      }
+
+      // Update Canonical Link
+      let canonicalEl = document.querySelector('link[rel="canonical"]');
+      if (canonicalEl) {
+        canonicalEl.setAttribute('href', canonicalUrl);
+      } else {
+        canonicalEl = document.createElement('link');
+        canonicalEl.setAttribute('rel', 'canonical');
+        canonicalEl.setAttribute('href', canonicalUrl);
+        document.head.appendChild(canonicalEl);
+      }
+
+      // Update Open Graph & Twitter URL tags
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
+
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', dynamicTitle);
+
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute('content', dynamicDesc);
+
+      const twUrl = document.querySelector('meta[name="twitter:url"]');
+      if (twUrl) twUrl.setAttribute('content', canonicalUrl);
+
+      const twTitle = document.querySelector('meta[name="twitter:title"]');
+      if (twTitle) twTitle.setAttribute('content', dynamicTitle);
+
+      const twDesc = document.querySelector('meta[name="twitter:description"]');
+      if (twDesc) twDesc.setAttribute('content', dynamicDesc);
     }
   }, [activeTab, country]);
 
@@ -112,11 +142,14 @@ export function App() {
     }
 
     if (newCountry === 'UK' && activeTab === '1099-vs-w2') {
-      setActiveTab('uk-tax');
+      navigateToRoute('uk-tax', ROUTES['uk-tax'].path);
     } else if (newCountry === 'US' && activeTab === 'uk-tax') {
-      setActiveTab('1099-vs-w2');
+      navigateToRoute('1099-vs-w2', ROUTES['1099-vs-w2'].path);
     }
   };
+
+  const currentRoute = ROUTES[activeTab] || ROUTES['1099-vs-w2'];
+  const countryInfo = getCountryInfo(country);
 
   return (
     <div className="min-h-screen bg-black text-zinc-100 flex flex-col font-sans selection:bg-[#ff9f0a]/30 selection:text-[#ff9f0a]">
@@ -131,15 +164,13 @@ export function App() {
         onOpenCountryModal={() => setIsCountryModalOpen(true)}
         language={language}
         onOpenLanguageModal={() => setIsLanguageModalOpen(true)}
+        onNavigateHome={() => navigateToRoute('1099-vs-w2', '/')}
       />
 
-      {/* Tabs with Hash Routing & Internationalization */}
+      {/* Crawlable Navigation Tabs */}
       <Tabs
         activeTab={activeTab}
-        onTabChange={tab => {
-          setActiveTab(tab);
-          window.location.hash = `#${tab}`;
-        }}
+        onTabChange={(tab, path) => navigateToRoute(tab, path)}
         country={country}
         language={language}
       />
@@ -152,20 +183,62 @@ export function App() {
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-6 pb-20">
         
+        {/* Semantic SEO Page Heading & Breadcrumb Header */}
+        <section aria-label="Page Header" className="bg-zinc-950/90 border border-zinc-900 rounded-3xl p-5 sm:p-6 space-y-3">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[11px] text-zinc-400">
+            <a 
+              href="/" 
+              onClick={(e) => {
+                if (!e.metaKey && !e.ctrlKey) {
+                  e.preventDefault();
+                  navigateToRoute('1099-vs-w2', '/');
+                }
+              }} 
+              className="hover:text-[#ff9f0a] flex items-center gap-1 transition text-inherit no-underline"
+            >
+              <HomeIcon className="w-3.5 h-3.5" />
+              <span>Home</span>
+            </a>
+            <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
+            <span className="text-zinc-400">Calculators</span>
+            <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
+            <span className="text-[#ff9f0a] font-medium">{currentRoute.breadcrumbName}</span>
+          </nav>
+
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-1">
+            <div className="space-y-1">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight">
+                {currentRoute.heading}
+              </h1>
+              <p className="text-xs sm:text-sm text-zinc-400 max-w-3xl leading-relaxed">
+                {currentRoute.subheading}
+              </p>
+            </div>
+
+            <div className="shrink-0 flex items-center gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-zinc-900 text-zinc-300 border border-zinc-800">
+                {countryInfo.flag} {countryInfo.name} ({countryInfo.symbol} {countryInfo.currency})
+              </span>
+            </div>
+          </div>
+        </section>
+
         {/* Active Calculator Component */}
-        {activeTab === '1099-vs-w2' && <TaxEqualizer country={country} language={language} />}
-        {activeTab === 'debt-matrix' && <DebtMatrix country={country} />}
-        {activeTab === 'rent-vs-buy' && <RentVsBuy country={country} />}
-        {activeTab === 'can-i-afford-it' && <CanIAffordIt country={country} />}
-        {activeTab === 'fire-calculator' && <FIRECalculator country={country} />}
-        {activeTab === 'job-duel' && <JobDuel country={country} />}
-        {activeTab === 'uk-tax' && <UKOptimizer />}
-        {activeTab === 'suggestions' && (
-          <SuggestionHub
-            country={country}
-            onNavigateTab={tab => setActiveTab(tab)}
-          />
-        )}
+        <div id="calculator-workbench">
+          {activeTab === '1099-vs-w2' && <TaxEqualizer country={country} language={language} />}
+          {activeTab === 'debt-matrix' && <DebtMatrix country={country} />}
+          {activeTab === 'rent-vs-buy' && <RentVsBuy country={country} />}
+          {activeTab === 'can-i-afford-it' && <CanIAffordIt country={country} />}
+          {activeTab === 'fire-calculator' && <FIRECalculator country={country} />}
+          {activeTab === 'job-duel' && <JobDuel country={country} />}
+          {activeTab === 'uk-tax' && <UKOptimizer />}
+          {activeTab === 'suggestions' && (
+            <SuggestionHub
+              country={country}
+              onNavigateTab={tab => navigateToRoute(tab, ROUTES[tab]?.path)}
+            />
+          )}
+        </div>
 
         {/* Google AdSense Sponsored Mid-Content Ad Slot */}
         <AdSenseBanner label="Sponsored Financial Toolkit • Google AdSense" format="auto" />
@@ -178,13 +251,23 @@ export function App() {
         {/* In-Article Pre-FAQ Ad Slot */}
         <AdSenseBanner label="Sponsored Market Insights • Google AdSense" format="horizontal" />
 
-        {/* Search Engine Optimization (SEO) Content & Rich FAQ Accordion */}
-        <SEOContentHub country={country} activeTab={activeTab} />
+        {/* Search Engine Optimization (SEO) Content & Rich FAQ Accordion with Crawlable Links */}
+        <SEOContentHub 
+          country={country} 
+          activeTab={activeTab} 
+          onNavigate={path => {
+            const calc = getCalculatorFromPathname(path);
+            if (calc) navigateToRoute(calc, path);
+          }}
+        />
 
       </main>
 
-      {/* Footer */}
-      <Footer />
+      {/* Crawlable Footer */}
+      <Footer onNavigate={path => {
+        const calc = getCalculatorFromPathname(path);
+        if (calc) navigateToRoute(calc, path);
+      }} />
 
       {/* Sticky Bottom Floating Anchor Ad (Mobile & Desktop Viewports) */}
       <StickyBottomAd />

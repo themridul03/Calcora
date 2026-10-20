@@ -4,7 +4,7 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <!-- Main Suite Entrypoint -->
+  <!-- Calcora Homepage -->
   <url>
     <loc>https://calcora-roan.vercel.app/</loc>
     <lastmod>2026-10-20</lastmod>
@@ -12,9 +12,9 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- 1099 vs W2 Equalizer -->
+  <!-- 1099 vs W-2 Contractor Equalizer -->
   <url>
-    <loc>https://calcora-roan.vercel.app/#1099-vs-w2</loc>
+    <loc>https://calcora-roan.vercel.app/calculators/1099-vs-w2</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -22,15 +22,15 @@
 
   <!-- Credit Card Debt Avalanche vs Snowball Matrix -->
   <url>
-    <loc>https://calcora-roan.vercel.app/#debt-matrix</loc>
+    <loc>https://calcora-roan.vercel.app/calculators/debt-payoff</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- 2026 Rent vs Buy Break-Even Engine -->
+  <!-- 2026 Rent vs Buy Decision Engine -->
   <url>
-    <loc>https://calcora-roan.vercel.app/#rent-vs-buy</loc>
+    <loc>https://calcora-roan.vercel.app/calculators/rent-vs-buy</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -38,7 +38,7 @@
 
   <!-- "Can I Afford This?" Viral Impulse Buy Checker -->
   <url>
-    <loc>https://calcora-roan.vercel.app/#can-i-afford-it</loc>
+    <loc>https://calcora-roan.vercel.app/calculators/can-i-afford-it</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
@@ -46,15 +46,15 @@
 
   <!-- FIRE Retirement Freedom 4% Rule Calculator -->
   <url>
-    <loc>https://calcora-roan.vercel.app/#fire-calculator</loc>
+    <loc>https://calcora-roan.vercel.app/calculators/fire-retirement</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
 
-  <!-- Side-by-Side Job Offer Duel -->
+  <!-- Side-by-Side Job Offer Duel & Relocation Arbitrage -->
   <url>
-    <loc>https://calcora-roan.vercel.app/#job-duel</loc>
+    <loc>https://calcora-roan.vercel.app/calculators/job-offer-comparison</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -62,7 +62,7 @@
 
   <!-- UK 60% Marginal Tax Trap & Salary Sacrifice -->
   <url>
-    <loc>https://calcora-roan.vercel.app/#uk-tax</loc>
+    <loc>https://calcora-roan.vercel.app/uk/salary-sacrifice-calculator</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -70,7 +70,7 @@
 
   <!-- Community Roadmap & Suggestion Hub -->
   <url>
-    <loc>https://calcora-roan.vercel.app/#suggestions</loc>
+    <loc>https://calcora-roan.vercel.app/suggestions</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

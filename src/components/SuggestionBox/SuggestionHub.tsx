@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { Country, CalculatorType } from '../../types';
 import { getCountryInfo } from '../../utils/countries';
+import { ROUTES } from '../../utils/routes';
 
 interface SuggestionHubProps {
   country: Country;
@@ -165,12 +166,18 @@ export const SuggestionHub: React.FC<SuggestionHubProps> = ({ country, onNavigat
                 If your annual self-employment or contractor profit exceeds {currencySymbol}75,000, paying yourself a market salary and taking remainder profits as distributions shelters income from mandatory self-employment tax.
               </p>
               <div className="pt-2 flex justify-end">
-                <button
-                  onClick={() => onNavigateTab('1099-vs-w2')}
-                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1"
+                <a
+                  href={ROUTES['1099-vs-w2'].path}
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigateTab('1099-vs-w2');
+                    }
+                  }}
+                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1 no-underline"
                 >
                   Test in 1099 Equalizer →
-                </button>
+                </a>
               </div>
             </div>
 
@@ -192,12 +199,18 @@ export const SuggestionHub: React.FC<SuggestionHubProps> = ({ country, onNavigat
                 Paying standard 2% minimums on multiple credit cards is mathematically engineered to keep you paying interest for 18+ years. Switching to an Avalanche strategy saves thousands immediately.
               </p>
               <div className="pt-2 flex justify-end">
-                <button
-                  onClick={() => onNavigateTab('debt-matrix')}
-                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1"
+                <a
+                  href={ROUTES['debt-matrix'].path}
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigateTab('debt-matrix');
+                    }
+                  }}
+                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1 no-underline"
                 >
                   Simulate Debt Matrix →
-                </button>
+                </a>
               </div>
             </div>
 
@@ -219,12 +232,18 @@ export const SuggestionHub: React.FC<SuggestionHubProps> = ({ country, onNavigat
                 In a 6.5%+ mortgage climate, 70% of monthly payments in Years 1–5 are unrecoverable interest and property tax. Renting while compounding down payment capital in index funds outperforms premature home buying.
               </p>
               <div className="pt-2 flex justify-end">
-                <button
-                  onClick={() => onNavigateTab('rent-vs-buy')}
-                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1"
+                <a
+                  href={ROUTES['rent-vs-buy'].path}
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigateTab('rent-vs-buy');
+                    }
+                  }}
+                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1 no-underline"
                 >
                   Inspect Break-Even Year →
-                </button>
+                </a>
               </div>
             </div>
 
@@ -246,12 +265,18 @@ export const SuggestionHub: React.FC<SuggestionHubProps> = ({ country, onNavigat
                 Before purchasing that luxury gadget or vehicle, see the exact hours of your finite life you must trade for it and the 20-year S&P 500 compounding opportunity cost.
               </p>
               <div className="pt-2 flex justify-end">
-                <button
-                  onClick={() => onNavigateTab('can-i-afford-it')}
-                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1"
+                <a
+                  href={ROUTES['can-i-afford-it'].path}
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigateTab('can-i-afford-it');
+                    }
+                  }}
+                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1 no-underline"
                 >
                   Launch Impulse Buy Checker →
-                </button>
+                </a>
               </div>
             </div>
 
@@ -273,12 +298,18 @@ export const SuggestionHub: React.FC<SuggestionHubProps> = ({ country, onNavigat
                 Calculate your exact Freedom Number, Lean FIRE baseline, and Fat FIRE threshold. See your retirement runway shorten with every 5% boost in savings rate.
               </p>
               <div className="pt-2 flex justify-end">
-                <button
-                  onClick={() => onNavigateTab('fire-calculator')}
-                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1"
+                <a
+                  href={ROUTES['fire-calculator'].path}
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigateTab('fire-calculator');
+                    }
+                  }}
+                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1 no-underline"
                 >
                   Calculate Freedom Age →
-                </button>
+                </a>
               </div>
             </div>
 
@@ -300,12 +331,18 @@ export const SuggestionHub: React.FC<SuggestionHubProps> = ({ country, onNavigat
                 Pit two job offers against each other. Deduct real state tax brackets, high-cost city rents, and 401(k) matches to uncover the true cash champion.
               </p>
               <div className="pt-2 flex justify-end">
-                <button
-                  onClick={() => onNavigateTab('job-duel')}
-                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1"
+                <a
+                  href={ROUTES['job-duel'].path}
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigateTab('job-duel');
+                    }
+                  }}
+                  className="text-xs font-semibold text-[#ff9f0a] hover:text-[#ffb340] flex items-center gap-1 no-underline"
                 >
                   Fight Job Offers →
-                </button>
+                </a>
               </div>
             </div>
 

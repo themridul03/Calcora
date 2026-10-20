@@ -11,10 +11,11 @@ import {
 } from 'lucide-react';
 import { CalculatorType, Country } from '../types';
 import { SupportedLanguage, getTranslation } from '../utils/i18n';
+import { ROUTES } from '../utils/routes';
 
 interface TabsProps {
   activeTab: CalculatorType;
-  onTabChange: (tab: CalculatorType) => void;
+  onTabChange: (tab: CalculatorType, path: string) => void;
   country: Country;
   language: SupportedLanguage;
 }
@@ -23,6 +24,7 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, onTabChange, country, lan
   const tabs = [
     {
       id: '1099-vs-w2' as CalculatorType,
+      path: ROUTES['1099-vs-w2'].path,
       label: getTranslation(language, 'tab1099'),
       icon: Briefcase,
       badge: 'Equalizer',
@@ -30,6 +32,7 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, onTabChange, country, lan
     },
     {
       id: 'debt-matrix' as CalculatorType,
+      path: ROUTES['debt-matrix'].path,
       label: getTranslation(language, 'tabDebt'),
       icon: CreditCard,
       badge: 'Save $$$',
@@ -37,6 +40,7 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, onTabChange, country, lan
     },
     {
       id: 'rent-vs-buy' as CalculatorType,
+      path: ROUTES['rent-vs-buy'].path,
       label: getTranslation(language, 'tabRent'),
       icon: Home,
       badge: 'Break-Even',
@@ -44,6 +48,7 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, onTabChange, country, lan
     },
     {
       id: 'can-i-afford-it' as CalculatorType,
+      path: ROUTES['can-i-afford-it'].path,
       label: getTranslation(language, 'tabAfford'),
       icon: ShoppingBag,
       badge: 'Viral 🔥',
@@ -51,6 +56,7 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, onTabChange, country, lan
     },
     {
       id: 'fire-calculator' as CalculatorType,
+      path: ROUTES['fire-calculator'].path,
       label: getTranslation(language, 'tabFire'),
       icon: Flame,
       badge: 'Freedom 🎯',
@@ -58,6 +64,7 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, onTabChange, country, lan
     },
     {
       id: 'job-duel' as CalculatorType,
+      path: ROUTES['job-duel'].path,
       label: getTranslation(language, 'tabDuel'),
       icon: Swords,
       badge: 'Duel ⚔️',
@@ -65,6 +72,7 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, onTabChange, country, lan
     },
     {
       id: 'uk-tax' as CalculatorType,
+      path: ROUTES['uk-tax'].path,
       label: getTranslation(language, 'tabTax'),
       icon: Landmark,
       badge: country === 'UK' ? '60% Trap' : 'Optimized',
@@ -72,6 +80,7 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, onTabChange, country, lan
     },
     {
       id: 'suggestions' as CalculatorType,
+      path: ROUTES['suggestions'].path,
       label: getTranslation(language, 'tabSuggestions'),
       icon: Lightbulb,
       badge: 'Interactive',
@@ -80,16 +89,24 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, onTabChange, country, lan
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-1">
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 bg-zinc-950/80 p-2 rounded-3xl border border-zinc-900 shadow-2xl">
+    <nav aria-label="Financial Calculators Navigation" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-1">
+      <div role="tablist" className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 bg-zinc-950/80 p-2 rounded-3xl border border-zinc-900 shadow-2xl">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
           return (
-            <button
+            <a
               key={tab.id}
-              onClick={() => onTabChange(tab.id)}
-              className={`relative flex flex-col items-start p-3 rounded-2xl transition-all text-left ${
+              href={tab.path}
+              role="tab"
+              aria-selected={isActive}
+              onClick={(e) => {
+                if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                  e.preventDefault();
+                  onTabChange(tab.id, tab.path);
+                }
+              }}
+              className={`relative flex flex-col items-start p-3 rounded-2xl transition-all text-left no-underline select-none ${
                 isActive
                   ? 'bg-zinc-900 text-white shadow-xl border border-zinc-700/80 ring-1 ring-[#ff9f0a]/30'
                   : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50 border border-transparent'
@@ -113,10 +130,10 @@ export const Tabs: React.FC<TabsProps> = ({ activeTab, onTabChange, country, lan
               <span className="text-[10px] text-zinc-400 line-clamp-1">
                 {tab.description}
               </span>
-            </button>
+            </a>
           );
         })}
       </div>
-    </div>
+    </nav>
   );
 };

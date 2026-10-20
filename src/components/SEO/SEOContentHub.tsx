@@ -2,15 +2,24 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, BookOpen, Calculator, HelpCircle, CheckCircle2, ShieldCheck, FileText } from 'lucide-react';
 import { Country, CalculatorType } from '../../types';
 import { getCountryInfo } from '../../utils/countries';
+import { ROUTES } from '../../utils/routes';
 
 interface SEOContentHubProps {
   country: Country;
   activeTab: CalculatorType;
+  onNavigate?: (path: string) => void;
 }
 
-export const SEOContentHub: React.FC<SEOContentHubProps> = ({ country, activeTab }) => {
+export const SEOContentHub: React.FC<SEOContentHubProps> = ({ country, activeTab, onNavigate }) => {
   const countryInfo = getCountryInfo(country);
   const currencySymbol = countryInfo.symbol;
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0 && onNavigate) {
+      e.preventDefault();
+      onNavigate(path);
+    }
+  };
 
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
@@ -92,6 +101,15 @@ export const SEOContentHub: React.FC<SEOContentHubProps> = ({ country, activeTab
           <p className="text-zinc-400 leading-relaxed">
             Because employers pay 7.65% of FICA and provide tax-sheltered health plans, 1099 contractors must add an overhead factor of <strong>+35% to +45%</strong> to achieve identical living standards.
           </p>
+          <div className="pt-2">
+            <a
+              href={ROUTES['1099-vs-w2'].path}
+              onClick={(e) => handleLinkClick(e, ROUTES['1099-vs-w2'].path)}
+              className="text-[11px] font-semibold text-[#ff9f0a] hover:underline inline-flex items-center gap-1"
+            >
+              Open 1099 vs W-2 Equalizer &rarr;
+            </a>
+          </div>
         </article>
 
         {/* Pillar 2: Debt Avalanche Mechanics */}
@@ -111,6 +129,15 @@ export const SEOContentHub: React.FC<SEOContentHubProps> = ({ country, activeTab
           <p className="text-zinc-400 leading-relaxed">
             Targeting the highest APR first (e.g. 28.99% before 19.99%) minimizes total interest leakage. Minimum-only payments extend payoff past 18 years due to negative amortization damping.
           </p>
+          <div className="pt-2">
+            <a
+              href={ROUTES['debt-matrix'].path}
+              onClick={(e) => handleLinkClick(e, ROUTES['debt-matrix'].path)}
+              className="text-[11px] font-semibold text-[#ff9f0a] hover:underline inline-flex items-center gap-1"
+            >
+              Launch Debt Payoff Matrix &rarr;
+            </a>
+          </div>
         </article>
 
         {/* Pillar 3: Housing Opportunity Cost */}
@@ -130,6 +157,15 @@ export const SEOContentHub: React.FC<SEOContentHubProps> = ({ country, activeTab
           <p className="text-zinc-400 leading-relaxed">
             Calcora tests the down payment cash compounded in the S&P 500 (~8% annualized) against the net home equity after 6% selling fees, pinpointing the true break-even year.
           </p>
+          <div className="pt-2">
+            <a
+              href={ROUTES['rent-vs-buy'].path}
+              onClick={(e) => handleLinkClick(e, ROUTES['rent-vs-buy'].path)}
+              className="text-[11px] font-semibold text-[#ff9f0a] hover:underline inline-flex items-center gap-1"
+            >
+              Run 2026 Rent vs Buy Model &rarr;
+            </a>
+          </div>
         </article>
 
       </div>
